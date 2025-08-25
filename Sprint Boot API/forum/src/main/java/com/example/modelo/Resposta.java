@@ -1,13 +1,21 @@
 package com.example.modelo;
-
+import jakarta.persistence.Id;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.ManyToOne;
 import java.time.LocalDateTime;
-
+import jakarta.persistence.Entity;
+@Entity
 public class Resposta {
 
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String mensagem;
+
+	@ManyToOne
 	private Topico topico;
 	private LocalDateTime dataCriacao = LocalDateTime.now();
+	@ManyToOne
 	private Usuario autor;
 	private Boolean solucao = false;
 
