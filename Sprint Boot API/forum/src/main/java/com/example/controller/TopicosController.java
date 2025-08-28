@@ -1,20 +1,28 @@
 package com.example.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
-import java.util.Arrays;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import com.example.repository.TopicoRepository;
 import com.example.modelo.Topico;
-import com.example.modelo.Curso;
 import com.example.controller.dto.TopicoDto;
 
 @RestController
 public class TopicosController {
     
-    @RequestMapping("/topicos")
-    public List<TopicoDto> lista() {
-        Topico topico = new Topico("Duvida", "Duvida com spring", new Curso("Spring", "Programacao"));
+    @Autowired
+    private TopicoRepository topicoRepository;
 
-        return TopicoDto.converter(Arrays.asList(topico, topico, topico));
+    @RequestMapping("/topicos")
+    public List<TopicoDto> lista(String nomeCurso) {
+        if (nomeCurso == null) {
+            List<Topico> topicos = topicoRepository.findAll();
+            return TopicoDto.converter(topicos);
+        } else {
+            List<Topico> topicos = topicoRepository.findByCursoNome(nomeCurso);
+            return TopicoDto.converter(topicos);
+        }
     }
 }
