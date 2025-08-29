@@ -1,4 +1,5 @@
 package com.example.controller;
+import com.example.controller.dto.DetalhesDoTopicoDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.controller.form.TopicoForm;
@@ -11,7 +12,7 @@ import com.example.modelo.Topico;
 import com.example.controller.dto.TopicoDto;
 import org.springframework.web.util.UriComponentsBuilder;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
+
 
 @RestController
 @RequestMapping("/topicos")
@@ -41,5 +42,11 @@ public class TopicosController {
 		
 		URI uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
 		return ResponseEntity.created(uri).body(new TopicoDto(topico));
+	}
+
+	@GetMapping("/{id}")
+	public DetalhesDoTopicoDto detalhar(@PathVariable Long id) {
+		Topico topico = topicoRepository.getOne(id);
+		return new DetalhesDoTopicoDto(topico);
 	}
 }
