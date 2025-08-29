@@ -10,7 +10,8 @@ import com.example.repository.TopicoRepository;
 import com.example.modelo.Topico;
 import com.example.controller.dto.TopicoDto;
 import org.springframework.web.util.UriComponentsBuilder;
-
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 
 @RestController
 @RequestMapping("/topicos")
@@ -34,7 +35,7 @@ public class TopicosController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<TopicoDto> cadastrar(@RequestBody TopicoForm form, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<TopicoDto> cadastrar(@RequestBody @Valid TopicoForm form, UriComponentsBuilder uriBuilder) {
 		Topico topico = form.converter(cursoRepository);
 		topicoRepository.save(topico);
 		
