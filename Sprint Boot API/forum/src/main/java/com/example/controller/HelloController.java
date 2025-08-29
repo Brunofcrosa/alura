@@ -1,10 +1,16 @@
-package com.example.controller;
 
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+@Controller
 public class HelloController {
-	public String hello(){
-		return "Hello World";
+
+	@RequestMapping("/")
+	@ResponseBody
+	public String hello() {
+		return "Hello World!";
 	}
+
 }
